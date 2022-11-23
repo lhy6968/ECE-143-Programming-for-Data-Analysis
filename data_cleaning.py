@@ -24,7 +24,8 @@ def remove_stopwords(data):
     removes stop words
 
     '''
-    stop_words = stopwords.words('english') + list(string.punctuation)
+    custom_words = ['professor']
+    stop_words = stopwords.words('english') + custom_words + list(string.punctuation)
     return [[word for word in simple_preprocess(str(doc)) if word not in stop_words] for doc in data]
 
 def lemmatization(data, allowed_word_types = ['NOUN', 'ADJ', 'VERB', 'ADV']):
@@ -62,13 +63,13 @@ def dataframe(x):
     df = pd.DataFrame(data_tuple, columns = ['School', 'Professor', 'Department', 'State', 'Star'])
     df = df.drop_duplicates()
     df = df.sort_values('School')
-    df.to_csv("rmp.csv")
+    # df.to_csv("rmp.csv")
     return df
 
 
 def professor_tags(x):
     '''
-    dataframe containing proffessor and tags
+    dataframe containing professor and tags
 
     '''
     professors = x['professor_name'].values.tolist()
@@ -86,8 +87,35 @@ def professor_tags(x):
     data_tuple = list(zip(professors, tags))
     df = pd.DataFrame(data_tuple, columns = ['Professor', 'Tags'])
     df = df.drop_duplicates()
-    df.to_csv("professor_tags.csv")
+    # df.to_csv("professor_tags.csv")
     return df
+
+
+def professor_tags_dict(x):
+    '''
+    dictionary of the form
+    
+    [prof : [(tag1, freq1), (tag2, freq2) ... ]
+
+    '''
+    professors = df['professor_name'].values.tolist()
+    df.tag_professor = df.tag_professor.fillna('')
+    tags = df['tag_professor'].values.tolist()
+    prof_tags_dict = collections.defaultdict(list)
+    for i in range(len(tags)):  
+        tgs = re.sub('\(\d\)',':', tags[i])
+        clean_tags = [x.strip() for x in tgs.split(':') if x!='']
+        freqs = re.findall('(\d)', tags[i])
+        tag_freqs = list(zip(clean_tags, freqs))
+        prof_tags_dict[professors[i]] = tag_freqs
+        
+    with open('prof_tags_dict.pickle', 'wb') as handle:
+        pickle.dump(prof_tags_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
+        
+    # Can read pickle file like this
+    # with open('prof_tags_dict.pickle', 'rb') as handle:
+    #     b = pickle.load(handle)
+
 
 def professor_diff(x):
     '''
@@ -100,7 +128,7 @@ def professor_diff(x):
     
     data_tuple = list(zip(professors, difficulty))
     df = pd.DataFrame(data_tuple, columns = ['Professor', 'Difficulty'])
-    df.to_csv("professor_tags.csv")
+    # df.to_csv("professor_tags.csv")
     return df
 
 def date_star(x):
@@ -115,7 +143,7 @@ def date_star(x):
     
     data_tuple = list(zip(professors, star, date))
     df = pd.DataFrame(data_tuple, columns = ['Professor', 'Star', 'Post Date'])
-    df.to_csv("professor_tags.csv")
+    # df.to_csv("professor_tags.csv")
     return df
 
 
@@ -130,7 +158,7 @@ def diff_star(x):
 
     data_tuple = list(zip(professors, difficulty, star))
     df = pd.DataFrame(data_tuple, columns = ['Professor', 'Difficulty', 'Star'])
-    df.to_csv("professor_tags.csv")
+    # df.to_csv("professor_tags.csv")
     return df
     
 a = "RateMyProfessor_Sample_data.csv"
@@ -145,3 +173,5 @@ x = pd.read_csv(a)
 #print(department_star(x))
 dataframe(x)
 #professor_tags(x)
+
+# professor_tags_dict(x)
