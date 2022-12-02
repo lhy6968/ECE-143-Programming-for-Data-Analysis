@@ -2,7 +2,7 @@
 
 The purporse of the project is to analyze Student Reviews on RateMyProfessor site to gain insight into the course difficulty level, Professor’s style of teaching and overall student sentiment at a Professor / Department level. 
 
-3 broad tasks - 
+3 main tasks - 
 1. EDA 
 2. Sentiment Analysis
 3. Topic Modelling
@@ -27,29 +27,24 @@ https://data.mendeley.com/datasets/fvtfjyvw7d/2
     4. Pandas
     5. Numpy
 
-
 ### Installation & Setup
 
-1. Clone repo
+1. Clone repository
 2. Install python dependencies
 ```sh
    pip install -r requirements.txt
 ```
+
+3. Install VADER library from NLTK
+```sh
+    import nltk
+>>> nltk.download('vader_lexicon')
+```
 3. Run the jupyter notebook to render visualizations & statistics
-
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
 
 
 ## Acknowledgments
 
 Inspiration, code snippets, etc.
-* [awesome-readme](https://github.com/matiassingers/awesome-readme)
-* [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-* [dbader](https://github.com/dbader/readme-template)
-* [zenorocha](https://gist.github.com/zenorocha/4526327)
-* [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+* [sentiment-analysis-hotel-reviews](https://www.kaggle.com/code/jonathanoheix/sentiment-analysis-with-hotel-reviews)
+* [amazon-reviews-topic-modelling](https://www.kaggle.com/code/yasserh/amazon-product-reviews-topic-modelling)
