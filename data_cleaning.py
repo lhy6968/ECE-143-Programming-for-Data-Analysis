@@ -1,6 +1,7 @@
-'''
-File to clean csv file
-'''
+"""
+Helper functions to Preprocessing Data
+"""
+
 import pandas as pd
 import string
 from string import digits
@@ -19,12 +20,11 @@ def comments_to_words(sentences, deacc=True):
         yield(gensim.utils.simple_preprocess(str(sentence)))
        
      
-def remove_stopwords(data):
+def remove_stopwords(data, custom_words):
     '''
     removes stop words
 
     '''
-    custom_words = ['professor']
     stop_words = stopwords.words('english') + custom_words + list(string.punctuation)
     return [[word for word in simple_preprocess(str(doc)) if word not in stop_words] for doc in data]
 
@@ -63,7 +63,6 @@ def dataframe(x):
     df = pd.DataFrame(data_tuple, columns = ['School', 'Professor', 'Department', 'State', 'Star'])
     df = df.drop_duplicates()
     df = df.sort_values('School')
-    # df.to_csv("rmp.csv")
     return df
 
 
@@ -87,7 +86,6 @@ def professor_tags(x):
     data_tuple = list(zip(professors, tags))
     df = pd.DataFrame(data_tuple, columns = ['Professor', 'Tags'])
     df = df.drop_duplicates()
-    # df.to_csv("professor_tags.csv")
     return df
 
 
@@ -111,10 +109,7 @@ def professor_tags_dict(x):
         
     with open('prof_tags_dict.pickle', 'wb') as handle:
         pickle.dump(prof_tags_dict, handle, protocol=pickle.HIGHEST_PROTOCOL)
-        
-    # Can read pickle file like this
-    # with open('prof_tags_dict.pickle', 'rb') as handle:
-    #     b = pickle.load(handle)
+
 
 
 def professor_diff(x):
@@ -128,7 +123,6 @@ def professor_diff(x):
     
     data_tuple = list(zip(professors, difficulty))
     df = pd.DataFrame(data_tuple, columns = ['Professor', 'Difficulty'])
-    # df.to_csv("professor_tags.csv")
     return df
 
 def date_star(x):
@@ -143,7 +137,6 @@ def date_star(x):
     
     data_tuple = list(zip(professors, star, date))
     df = pd.DataFrame(data_tuple, columns = ['Professor', 'Star', 'Post Date'])
-    # df.to_csv("professor_tags.csv")
     return df
 
 
@@ -158,20 +151,4 @@ def diff_star(x):
 
     data_tuple = list(zip(professors, difficulty, star))
     df = pd.DataFrame(data_tuple, columns = ['Professor', 'Difficulty', 'Star'])
-    # df.to_csv("professor_tags.csv")
     return df
-    
-a = "RateMyProfessor_Sample_data.csv"
-x = pd.read_csv(a)
-#sentences = x['comments'].values.tolist()
-#data_words = list(comments_to_words(sentences))
-#data_nostop_words = remove_stopwords(data_words)
-#lemmatized_data = lemmatization(data_nostop_words, allowed_word_types = ['NOUN', 'ADJ', 'VERB', 'ADV'])
-#print(data_nostop_words[5])
-#print(lemmatized_data[5])
-
-#print(department_star(x))
-dataframe(x)
-#professor_tags(x)
-
-# professor_tags_dict(x)
