@@ -23,6 +23,8 @@ https://data.mendeley.com/datasets/fvtfjyvw7d/2
     3. Matplotlib (For visualization)
     4. Pandas
     5. Numpy
+    6. Bokeh (For visualization)
+    7. Plotly
 
 ### Installation & Setup
 

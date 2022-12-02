@@ -5,4 +5,5 @@ nltk
 matplotlib
 spacy
 seaborn
-
+bokeh
+plotly

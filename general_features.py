@@ -19,14 +19,14 @@ import plotly.graph_objects as go
 
 
 
-data = pd.read_csv('RateMyProfessor_Sample data.csv')
+# data = pd.read_csv('RateMyProfessor_Sample data.csv')
 
 def heat_map_plot_rating(data):
     df = data
     df = df[df['tag_professor'].notna()]
     df.dropna(subset='tag_professor')
 
-    df_new1 = df['diff_index']
+    df_new1 = df['star_rating']
     df_new2 = df.iloc[:, 30:51]
 
     res = pd.concat([df_new1, df_new2], axis = 1)
@@ -80,7 +80,7 @@ def state_rating_heatmap(data):
     df_new.rename(columns = {"state_name":"code", 'star_rating' : 'star_rating'}, inplace = True)
     df_new['code'] = df_new['code'].str.strip()
     res = pd.merge(df,df_new, on = 'code', how = 'outer')
-    res_new = pd.read_csv('download_states.csv')
+    res_new = pd.read_csv('data/download_states.csv')
 
     fig = px.choropleth(res_new,
                     locations='code', 
@@ -98,6 +98,6 @@ def state_rating_heatmap(data):
 
     fig.show()
 
-state_rating_heatmap(data)
+# state_rating_heatmap(data)
 
 
