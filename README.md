@@ -1,15 +1,12 @@
 # ECE 143 (Fall '22)  - 'Rate My Professor' Reviews Analysis
 
-The purporse of the project is to analyze Student Reviews on RateMyProfessor site to gain insight into the course difficulty level, Professor’s style of teaching and overall student sentiment at a Professor / Department level. 
-
-3 main tasks - 
-1. EDA 
-2. Sentiment Analysis
-3. Topic Modelling
+The purporse of the project is to analyze Student Reviews on RateMyProfessor site to gain insight into the course difficulty level, Professor’s style of teaching and overall student sentiment at a Professor / Department level.
 
 ## Dataset
 
-We are using the Big Data Set sourced from RateMyProfessor.com for Professors' Teaching Evaluation
+We are using the Big Data Set sourced from RateMyProfessor.com for Professors' Teaching Evaluation.
+
+The dataset has fields like professor's name, school name, number of students, student comments, student star rating, student difficulty rating etc. The dataset contains 9,543,998 rows of comment records with valid information for 919,750 professors.
 
 https://data.mendeley.com/datasets/fvtfjyvw7d/2
 
