@@ -22,6 +22,10 @@ import plotly.graph_objects as go
 # data = pd.read_csv('RateMyProfessor_Sample data.csv')
 
 def heat_map_plot_rating(data):
+    '''
+    Plots the Heat map of Star Rating & Various Review Tags 
+    '''
+
     df = data
     df = df[df['tag_professor'].notna()]
     df.dropna(subset='tag_professor')
@@ -35,6 +39,9 @@ def heat_map_plot_rating(data):
     plt.show()
 
 def heat_map_plot_diff(data):
+    '''
+    Plots the Heat map of Difficulty Rating & Various Review Tags 
+    '''
     df = data
     df = df[df['tag_professor'].notna()]
     df.dropna(subset='tag_professor')
@@ -48,6 +55,9 @@ def heat_map_plot_diff(data):
     plt.show()
 
 def diff_rating_scatter_plot(data):
+    '''
+    Scatter Plot of Difficulty Index vs Star Rating 
+    '''
     df = data
     p = figure(width = 400, height = 400)
     p.circle(df['diff_index'], df['star_rating'],size = 5, alpha = 0.5)
@@ -56,6 +66,9 @@ def diff_rating_scatter_plot(data):
     show(p)
 
 def diff_rating_regression_line_plot(data):
+    '''
+    Scatter Plot of Difficulty Index vs Star Rating  - "Regression Plot to see patterns"
+    '''
     df = data
     aggregation_functions = {'star_rating':'mean'}
     df_new = df.groupby(df['diff_index']).aggregate(aggregation_functions)
@@ -65,6 +78,9 @@ def diff_rating_regression_line_plot(data):
     
 
 def prof_rating_based_on_department(df):
+    '''
+    Dataframe showing Per Department Rating"
+    '''
     df_agg = df.groupby(['department_name', 'professor_name']).agg({'star_rating':'mean'})
     df_new = df_agg['star_rating'].groupby('department_name', group_keys = False).nlargest(5)
     res = df_new.reset_index()
@@ -73,6 +89,9 @@ def prof_rating_based_on_department(df):
 
 
 def state_rating_heatmap(data):
+    '''
+    Heat Map of US States & Rating spread across all states
+    '''
     aggregation_functions = {'star_rating':'mean'}
     df_new = data.groupby(data['state_name']).aggregate(aggregation_functions)
     df_new.reset_index(inplace = True)
